@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Map from "./map/Map";
 import Table from "./table/Table";
-import './App.css';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import moment from "moment";
 
@@ -15,18 +13,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
     },
-    paper: {
-        padding: theme.spacing(4, 4, 0, 4),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'baseline',
-        position: 'relative',
-        overflow: 'hidden'
+    button: {
+        marginBottom: theme.spacing(1)
     },
-    scroll: {
-        height: '100%',
-        overflow: 'scroll'
-    }
+    input: {
+        display: 'none'
+    },
+    paper: {
+        padding: theme.spacing(2, 2, 0, 2),
+    },
 }));
 
 function App() {
@@ -36,6 +31,7 @@ function App() {
         let input = document.querySelector('input')
         input.addEventListener('change', () => {
             let files = input.files;
+            if (files.length === 0) return;
 
             const file = files[0];
 
@@ -45,8 +41,9 @@ function App() {
                 const file = e.target.result;
                 const lines = file.split(/\r\n|\n/);
                 const JSONlines = lines.map(x => JSON.parse(x))
-                JSONlines.forEach(x => {
-                    x.reading_ts = moment(x.reading_ts).format('MM Do YYYY, h:mm:ss a');
+                JSONlines.forEach((x, index) => {
+                    x.reading_ts = moment(x.reading_ts).format('DD-MM-YYYY, HH:mm:ss');
+                    x.index = index + 1;
                 })
                 setData(JSONlines)
             };
@@ -63,19 +60,18 @@ function App() {
         <div>
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
-                <Grid item xs={4} sm={4} md={4} className={classes.image}>
+                <Grid item xs={4} sm={4} md={4}>
                     <Map data={data}/>
                 </Grid>
-                <Grid item xs={8} sm={8} md={8} component={Paper} elevation={6} square className={classes.scroll}>
+                <Grid item xs={8} sm={8} md={8} component={Paper} elevation={6} square>
                     <div className={classes.paper}>
                         <label htmlFor="files">
-                            <input type="file" id="files" name="upload-photo" style={{ display: 'none' }}/>
-
-                            <Button variant="contained" component="span">
-                                Upload button
+                            <input type="file" id="files" name="upload-photo" className={classes.input}/>
+                            <Button variant="contained" component="span" className={classes.button}>
+                                Upload data
                             </Button>
                         </label>
-                        {data && <Table data={data}/>}
+                        {data && <Table data={data} setData={setData}/>}
                     </div>
                 </Grid>
             </Grid>

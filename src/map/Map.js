@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import L from 'leaflet';
+import PropTypes from "prop-types";
 
 function Map(props) {
     const mapRef = useRef(null);
 
     useEffect(() => {
         if (!props.data) return;
-        console.log("useEffect")
         props.data.forEach(x => {
             L.circle([x.latitude, x.longitude], {
                 color: 'red',
@@ -39,6 +39,10 @@ function Map(props) {
         </div>
     );
 
+}
+
+Map.propTypes = {
+    data: PropTypes.array.isRequired,
 }
 
 export default Map;

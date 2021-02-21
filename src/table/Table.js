@@ -3,24 +3,28 @@ import React, { useMemo } from 'react';
 import MaUTable from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
+import TableFooter from '@material-ui/core/TableFooter'
+import TablePagination from '@material-ui/core/TablePagination'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 
+import PropTypes from "prop-types";
+
+import TableToolbar from './TableToolbar'
+import TablePaginationActions from "./TablePaginationAction";
 import "./styles.css"
 
-import { useTable, useSortBy } from 'react-table'
+import {
+    useGlobalFilter,
+    usePagination,
+    useRowSelect,
+    useSortBy,
+    useTable,
+} from 'react-table'
 
-
-function Table(props) {
-    const data = useMemo(
-        () => props.data.map((el, ind) => {
-            el.index = ind;
-            return el;
-        }),
-        [props]
-    )
+function Table({ data, setData }) {
 
     const columns = useMemo(
         () => [
@@ -68,36 +72,77 @@ function Table(props) {
         []
     )
 
-    const {
-        getTableProps, headerGroups, prepareRow, rows,
-    } = useTable({ columns, data }, useSortBy)
+    const addSensorDataHandler = user => {
+        user.index = data.length + 1;
+        const newData = data.concat([user])
+        setData(newData)
+    }
 
+    const removeByIndexs = (array, indexs) =>
+        array.filter((_, i) => !indexs.includes(i))
+
+    const deleteSensorHandler = event => {
+        const newData = removeByIndexs(
+            data,
+            Object.keys(selectedRowIds).map(x => parseInt(x, 10))
+        )
+        setData(newData)
+    }
+
+    const {
+        getTableProps,
+        headerGroups,
+        prepareRow,
+        page,
+        gotoPage,
+        setPageSize,
+        state: { pageIndex, pageSize, selectedRowIds },
+    } = useTable(
+        {
+            columns,
+            data,
+        },
+        useGlobalFilter,
+        useSortBy,
+        usePagination,
+        useRowSelect,
+    )
+
+    const handleChangeRowsPerPage = event => {
+        setPageSize(Number(event.target.value))
+    }
+
+    const handleChangePage = (event, newPage) => {
+        gotoPage(newPage)
+    }
 
     return (
-        <Box height={'100%'} width={'100%'}>
-            <MaUTable {...getTableProps()} style={{
-                height: "100%",
-                width: "100%",
-                position: 'relative'// This will force the table body to overflow and scroll, since there is not enough room
-            }}>
+        <Box width={'100%'}>
+            <TableToolbar
+                numSelected={Object.keys(selectedRowIds).length}
+                deleteSensorHandler={deleteSensorHandler}
+                addSensorDataHandler={addSensorDataHandler}
+            />
+            <MaUTable {...getTableProps()}>
                 <TableHead>
                     {headerGroups.map(headerGroup => (
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map(column => (
-                                <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
+                                <TableCell {...(column.id === 'reading_ts' || column.id === 'sensor_type'
+                                    ? column.getHeaderProps(column.getSortByToggleProps())
+                                    : column.getHeaderProps())}>
                                     {column.render('Header')}
-                                    <TableSortLabel
+                                    {(column.id === 'reading_ts' || column.id === 'sensor_type') && <TableSortLabel
                                         active={column.isSorted}
-                                        // react-table has a unsorted state which is not treated here
                                         direction={column.isSortedDesc ? 'desc' : 'asc'}
-                                    />
+                                    />}
                                 </TableCell>
                             ))}
                         </TableRow>
                     ))}
                 </TableHead>
                 <TableBody>
-                    {rows.map((row, i) => {
+                    {page.map((row, i) => {
                         prepareRow(row)
                         return (
                             <TableRow {...row.getRowProps()}>
@@ -112,10 +157,36 @@ function Table(props) {
                         )
                     })}
                 </TableBody>
+
+                <TableFooter>
+                    <TableRow>
+                        <TablePagination
+                            rowsPerPageOptions={[
+                                5,
+                                10,
+                                25,
+                            ]}
+                            count={data.length}
+                            rowsPerPage={pageSize}
+                            page={pageIndex}
+                            SelectProps={{
+                                inputProps: { 'aria-label': 'rows per page' },
+                                native: true,
+                            }}
+                            onChangePage={handleChangePage}
+                            onChangeRowsPerPage={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationActions}
+                        />
+                    </TableRow>
+                </TableFooter>
             </MaUTable>
         </Box>
     );
+}
 
+Table.propTypes = {
+    data: PropTypes.array.isRequired,
+    setData: PropTypes.func.isRequired,
 }
 
 export default Table;
