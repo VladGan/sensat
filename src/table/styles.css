@@ -1,4 +1,5 @@
-table td, table th {
-    padding: 3px 3px!important;
-    font-size: 11px!important;
+table td,
+table th {
+  padding: 3px 3px !important;
+  font-size: 11px !important;
 }
