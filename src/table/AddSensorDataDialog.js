@@ -1,29 +1,29 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
-import Tooltip from "@material-ui/core/Tooltip";
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const initialSensorData = {
-  id: "",
-  box_id: "",
-  sensor_type: "",
-  name: "",
-  range_l: "",
-  range_r: "",
-  reading: "",
-  unit: "",
+  id: '',
+  box_id: '',
+  sensor_type: '',
+  name: '',
+  range_l: '',
+  range_r: '',
+  reading: '',
+  unit: '',
   longitude: 0,
   latitude: 0,
-  reading_ts: "",
+  reading_ts: '',
 };
 
 const AddSensorDataDialog = (props) => {
@@ -70,7 +70,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.id}
-            onChange={handleChange("id")}
+            onChange={handleChange('id')}
           />
           <TextField
             margin="dense"
@@ -78,7 +78,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.box_id}
-            onChange={handleChange("box_id")}
+            onChange={handleChange('box_id')}
           />
           <TextField
             margin="dense"
@@ -86,7 +86,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.sensor_type}
-            onChange={handleChange("sensor_type")}
+            onChange={handleChange('sensor_type')}
           />
           <TextField
             margin="dense"
@@ -94,7 +94,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.name}
-            onChange={handleChange("name")}
+            onChange={handleChange('name')}
           />
           <TextField
             margin="dense"
@@ -102,7 +102,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.range_l}
-            onChange={handleChange("range_l")}
+            onChange={handleChange('range_l')}
           />
           <TextField
             margin="dense"
@@ -110,7 +110,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.range_u}
-            onChange={handleChange("range_u")}
+            onChange={handleChange('range_u')}
           />
           <TextField
             margin="dense"
@@ -118,7 +118,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.reading}
-            onChange={handleChange("reading")}
+            onChange={handleChange('reading')}
           />
           <TextField
             margin="dense"
@@ -126,7 +126,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.unit}
-            onChange={handleChange("unit")}
+            onChange={handleChange('unit')}
           />
           <TextField
             margin="dense"
@@ -134,7 +134,7 @@ const AddSensorDataDialog = (props) => {
             type="number"
             fullWidth
             value={sensorData.longitude}
-            onChange={handleChange("longitude")}
+            onChange={handleChange('longitude')}
           />
           <TextField
             margin="dense"
@@ -142,7 +142,7 @@ const AddSensorDataDialog = (props) => {
             type="number"
             fullWidth
             value={sensorData.latitude}
-            onChange={handleChange("latitude")}
+            onChange={handleChange('latitude')}
           />
           <TextField
             margin="dense"
@@ -150,7 +150,7 @@ const AddSensorDataDialog = (props) => {
             type="text"
             fullWidth
             value={sensorData.reading_ts}
-            onChange={handleChange("reading_ts")}
+            onChange={handleChange('reading_ts')}
           />
         </DialogContent>
         <DialogActions>

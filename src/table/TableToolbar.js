@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { makeStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import AddSensorDataDialog from "./AddSensorDataDialog";
+import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import AddSensorDataDialog from './AddSensorDataDialog';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {

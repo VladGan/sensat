@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import Map from "./map/Map";
-import Table from "./table/Table";
+import React, { useEffect, useState } from 'react';
 
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import moment from "moment";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
+import Table from './table/Table';
+import Map from './map/Map';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh",
+    height: '100vh',
   },
   button: {
     marginBottom: theme.spacing(1),
   },
   input: {
-    display: "none",
+    display: 'none',
   },
   paper: {
     padding: theme.spacing(2, 2, 0, 2),
@@ -28,21 +28,21 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    let input = document.querySelector("input");
-    input.addEventListener("change", () => {
-      let files = input.files;
+    const input = document.querySelector('input');
+    input.addEventListener('change', () => {
+      const { files } = input;
       if (files.length === 0) return;
 
       const file = files[0];
 
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (e) => {
         const file = e.target.result;
         const lines = file.split(/\r\n|\n/);
         const JSONlines = lines.map((x) => JSON.parse(x));
         JSONlines.forEach((x, index) => {
-          x.reading_ts = moment(x.reading_ts).format("DD-MM-YYYY, HH:mm:ss");
+          x.reading_ts = moment(x.reading_ts).format('DD-MM-YYYY, HH:mm:ss');
           x.index = index + 1;
         });
         setData(JSONlines);
