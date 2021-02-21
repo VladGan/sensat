@@ -12,19 +12,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const initialSensorData = {
-  id: '',
-  box_id: '',
-  sensor_type: '',
-  name: '',
-  range_l: '',
-  range_r: '',
-  reading: '',
-  unit: '',
-  longitude: 0,
-  latitude: 0,
-  reading_ts: '',
-};
+import { initialSensorData } from '../data/dataType';
 
 const AddSensorDataDialog = (props) => {
   const [sensorData, setSensorData] = useState(initialSensorData);
@@ -39,7 +27,7 @@ const AddSensorDataDialog = (props) => {
     setOpen(false);
   };
 
-  const handleAdd = (event) => {
+  const handleAdd = () => {
     addSensorDataHandler(sensorData);
     setSensorData(initialSensorData);
   };
@@ -99,7 +87,7 @@ const AddSensorDataDialog = (props) => {
           <TextField
             margin="dense"
             label="Range L"
-            type="text"
+            type="number"
             fullWidth
             value={sensorData.range_l}
             onChange={handleChange('range_l')}
@@ -107,7 +95,7 @@ const AddSensorDataDialog = (props) => {
           <TextField
             margin="dense"
             label="Range U"
-            type="text"
+            type="number"
             fullWidth
             value={sensorData.range_u}
             onChange={handleChange('range_u')}

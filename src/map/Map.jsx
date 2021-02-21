@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import L from 'leaflet';
 import PropTypes from 'prop-types';
+import { sensorDataType } from '../data/dataType';
 
 function Map(props) {
   const mapRef = useRef(null);
+  const { data } = props;
 
   useEffect(() => {
     if (!props.data) return;
@@ -15,7 +17,7 @@ function Map(props) {
         radius: 50,
       }).addTo(mapRef.current);
     });
-  }, [props.data]);
+  }, [data]);
 
   useEffect(() => {
     mapRef.current = L.map('map').setView([51.505, -0.09], 13);
@@ -45,7 +47,10 @@ function Map(props) {
 }
 
 Map.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape(sensorDataType)),
+};
+Map.defaultProps = {
+  data: null,
 };
 
 export default Map;

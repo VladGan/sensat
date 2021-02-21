@@ -55,13 +55,14 @@
       "pre-commit": "lint-staged"
     }
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
       "eslint-config-airbnb"
     ],
     "rules": {
-      "additional-rule": "warn"
+      "react/jsx-props-no-spreading": "off"
     },
     "overrides": [
       {

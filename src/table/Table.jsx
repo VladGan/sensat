@@ -12,10 +12,6 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import PropTypes from 'prop-types';
 
-import TableToolbar from './TableToolbar';
-import TablePaginationActions from './TablePaginationAction';
-import './styles.css';
-
 import {
   useGlobalFilter,
   usePagination,
@@ -23,6 +19,11 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
+import { sensorDataType } from '../data/dataType';
+
+import TableToolbar from './TableToolbar';
+import TablePaginationActions from './TablePaginationAction';
+import './styles.css';
 
 function Table({ data, setData }) {
   const columns = useMemo(
@@ -72,20 +73,13 @@ function Table({ data, setData }) {
   );
 
   const addSensorDataHandler = (user) => {
-    user.index = data.length + 1;
-    const newData = data.concat([user]);
+    const userWithIndex = user;
+    userWithIndex.index = data.length + 1;
+    const newData = data.concat([userWithIndex]);
     setData(newData);
   };
 
   const removeByIndexs = (array, indexs) => array.filter((_, i) => !indexs.includes(i));
-
-  const deleteSensorHandler = (event) => {
-    const newData = removeByIndexs(
-      data,
-      Object.keys(selectedRowIds).map((x) => parseInt(x, 10)),
-    );
-    setData(newData);
-  };
 
   const {
     getTableProps,
@@ -105,6 +99,14 @@ function Table({ data, setData }) {
     usePagination,
     useRowSelect,
   );
+
+  const deleteSensorHandler = () => {
+    const newData = removeByIndexs(
+      data,
+      Object.keys(selectedRowIds).map((x) => parseInt(x, 10)),
+    );
+    setData(newData);
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setPageSize(Number(event.target.value));
@@ -145,7 +147,7 @@ function Table({ data, setData }) {
           ))}
         </TableHead>
         <TableBody>
-          {page.map((row, i) => {
+          {page.map((row) => {
             prepareRow(row);
             return (
               <TableRow {...row.getRowProps()}>
@@ -182,8 +184,11 @@ function Table({ data, setData }) {
 }
 
 Table.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(sensorDataType)),
   setData: PropTypes.func.isRequired,
+};
+Table.defaultProps = {
+  data: null,
 };
 
 export default Table;

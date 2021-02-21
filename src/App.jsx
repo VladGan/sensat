@@ -38,12 +38,13 @@ function App() {
       const reader = new FileReader();
 
       reader.onload = (e) => {
-        const file = e.target.result;
-        const lines = file.split(/\r\n|\n/);
+        const uploadedFile = e.target.result;
+        const lines = uploadedFile.split(/\r\n|\n/);
         const JSONlines = lines.map((x) => JSON.parse(x));
         JSONlines.forEach((x, index) => {
-          x.reading_ts = moment(x.reading_ts).format('DD-MM-YYYY, HH:mm:ss');
-          x.index = index + 1;
+          const newX = x;
+          newX.reading_ts = moment(x.reading_ts).format('DD-MM-YYYY, HH:mm:ss');
+          newX.index = index + 1;
         });
         setData(JSONlines);
       };
