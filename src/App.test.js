@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+it('renders correctly react-test-renderer', () => {
+  const renderer = new ShallowRenderer();
+  renderer.render(<App />);
+  const result = renderer.getRenderOutput();
+
+  expect(result).toMatchSnapshot();
 });
