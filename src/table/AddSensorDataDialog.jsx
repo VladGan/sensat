@@ -103,7 +103,7 @@ const AddSensorDataDialog = (props) => {
           <TextField
             margin="dense"
             label="Reading"
-            type="text"
+            type="number"
             fullWidth
             value={sensorData.reading}
             onChange={handleChange('reading')}

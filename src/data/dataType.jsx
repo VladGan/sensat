@@ -9,7 +9,7 @@ export const sensorDataType = {
   range_u: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
   latitude: PropTypes.number.isRequired,
-  reading: PropTypes.string.isRequired,
+  reading: PropTypes.number.isRequired,
   unit: PropTypes.string.isRequired,
   reading_ts: PropTypes.string.isRequired,
 };
@@ -21,7 +21,7 @@ export const initialSensorData = {
   name: '',
   range_l: 0,
   range_r: 0,
-  reading: '',
+  reading: 0,
   unit: '',
   longitude: 0,
   latitude: 0,
