@@ -49,8 +49,6 @@ function App() {
         setData(JSONlines);
       };
 
-      reader.onerror = (e) => alert(e.target.error.name);
-
       reader.readAsText(file);
     });
   }, []);

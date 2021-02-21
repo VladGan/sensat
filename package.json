@@ -62,7 +62,8 @@
       "eslint-config-airbnb"
     ],
     "rules": {
-      "react/jsx-props-no-spreading": "off"
+      "react/jsx-props-no-spreading": "off",
+      "react/destructuring-assignment": "off"
     },
     "overrides": [
       {

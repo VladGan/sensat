@@ -5,7 +5,6 @@ import { sensorDataType } from '../data/dataType';
 
 function Map(props) {
   const mapRef = useRef(null);
-  const { data } = props;
 
   useEffect(() => {
     if (!props.data) return;
@@ -17,7 +16,7 @@ function Map(props) {
         radius: 50,
       }).addTo(mapRef.current);
     });
-  }, [data]);
+  }, [props.data]);
 
   useEffect(() => {
     mapRef.current = L.map('map').setView([51.505, -0.09], 13);
