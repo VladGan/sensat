@@ -1,6 +1,8 @@
 # Start
 
 To start the application, run 
+`npm install` 
+and once it is finished,
 `npm start`
 from the root folder.
 
