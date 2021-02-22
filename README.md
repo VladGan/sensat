@@ -14,6 +14,7 @@ Press `+ Sensor` to add a custom field.
 There is a pagination, because if you load the whole data file on the page it will lag.
 
 The design is simple since there were no requirements design-wise. 
+Also, I didn't do much with responsiveness and cross-browser compatibility (I was using Chrome) in order to not put too much time into it.
 
 I added a simple test, it can be run using
 `npm test`
