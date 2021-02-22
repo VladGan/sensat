@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+// data type for the sensor data
 export const sensorDataType = {
   id: PropTypes.string.isRequired,
   box_id: PropTypes.string.isRequired,
