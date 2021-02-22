@@ -30,6 +30,7 @@ const AddSensorDataDialog = (props) => {
   const handleAdd = () => {
     addSensorDataHandler(sensorData);
     setSensorData(initialSensorData);
+    setOpen(false);
   };
 
   const handleChange = (name) => ({ target: { value } }) => {

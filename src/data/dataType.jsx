@@ -20,7 +20,7 @@ export const initialSensorData = {
   sensor_type: '',
   name: '',
   range_l: 0,
-  range_r: 0,
+  range_u: 0,
   reading: 0,
   unit: '',
   longitude: 0,
